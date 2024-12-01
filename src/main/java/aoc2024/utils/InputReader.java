@@ -34,9 +34,7 @@ public class InputReader {
             throw new RuntimeException(e);
         }
 
-        List<Integer> list1 = lists.get(0).stream().sorted().toList();
-        List<Integer> list2 = lists.get(1).stream().sorted().toList();
-        TwoIntListsInput input = new TwoIntListsInput(list1, list2);
+        TwoIntListsInput input = new TwoIntListsInput(lists.get(0), lists.get(1));
         return input;
     }
 

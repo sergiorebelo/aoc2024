@@ -11,7 +11,7 @@ public class DayOne {
 
     public static int first(String filePath)  {
 
-        TwoIntListsInput input = getInputFromFile(filePath);
+        TwoIntListsInput input = sortInputLists(getInputFromFile(filePath));
 
         return  IntStream.range(0, input.list1().size())
                 .map(i -> Math.abs(input.list1().get(i) - input.list2().get(i)))
@@ -20,7 +20,7 @@ public class DayOne {
 
     public static long second(String filePath)  {
 
-        TwoIntListsInput input = getInputFromFile(filePath);
+        TwoIntListsInput input = sortInputLists(getInputFromFile(filePath));
 
         return IntStream.range(0,input.list1().size())
                 .mapToObj(i -> findSimilarity(input.list1().get(i), input.list2()))
@@ -33,5 +33,10 @@ public class DayOne {
                 .filter(y -> y == x)
                 .count();
         return count*x;
+    }
+
+    private static TwoIntListsInput sortInputLists(TwoIntListsInput input) {
+
+        return new TwoIntListsInput(input.list1().stream().sorted().toList(), input.list2().stream().sorted().toList());
     }
 }
