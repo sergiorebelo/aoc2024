@@ -6,7 +6,7 @@ import aoc2024.utils.InputReader.TwoIntListsInput;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class DayOne {
+public class Day01 {
 
     public static int first(String filePath)  {
 

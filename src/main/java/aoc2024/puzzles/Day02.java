@@ -1,24 +1,22 @@
 package aoc2024.puzzles;
 
 import aoc2024.utils.InputReader;
-import aoc2024.utils.InputReader.TwoIntListsInput;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class DayTwo {
+public class Day02 {
 
     public static long first(String filePath)  {
 
         List<List<Integer>> input = getInputFromFile(filePath);
-        return input.stream().filter(DayTwo::isReportSafe).count();
+        return input.stream().filter(Day02::isReportSafe).count();
     }
 
     public static long second(String filePath)  {
 
         List<List<Integer>> input = getInputFromFile(filePath);
-        return input.stream().filter(DayTwo::isReportSafeWithTolerance).count();
+        return input.stream().filter(Day02::isReportSafeWithTolerance).count();
 
     }
 
