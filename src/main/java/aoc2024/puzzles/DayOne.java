@@ -1,11 +1,10 @@
 package aoc2024.puzzles;
 
+import aoc2024.utils.InputReader;
 import aoc2024.utils.InputReader.TwoIntListsInput;
 
 import java.util.List;
 import java.util.stream.IntStream;
-
-import static aoc2024.utils.InputReader.getInputFromFile;
 
 public class DayOne {
 
@@ -38,5 +37,9 @@ public class DayOne {
     private static TwoIntListsInput sortInputLists(TwoIntListsInput input) {
 
         return new TwoIntListsInput(input.list1().stream().sorted().toList(), input.list2().stream().sorted().toList());
+    }
+
+    private static TwoIntListsInput getInputFromFile(String filePath) {
+        return InputReader.readTwoIntListsFromFile(filePath);
     }
 }

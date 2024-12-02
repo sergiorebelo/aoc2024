@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,22 @@ public class InputReader {
         return lists;
     }
 
-    public static TwoIntListsInput getInputFromFile(String filePath) {
+    private static List<List<Integer>> readLinesOfIntsInput(String inputFilePath) throws IOException, URISyntaxException {
+
+        ClassLoader classLoader = InputReader.class.getClassLoader();
+        Path filePath = Path.of(classLoader.getResource(inputFilePath).toURI());
+
+        List<List<Integer>> lists = Files.lines(filePath)
+                .map(line -> line.split("\\s+"))
+                .map(report -> Arrays.stream(report)
+                        .map(Integer::valueOf)
+                        .toList())
+                .toList();
+
+        return lists;
+    }
+
+    public static TwoIntListsInput readTwoIntListsFromFile(String filePath) {
 
         List<List<Integer>> lists = null;
         try {
@@ -36,6 +52,18 @@ public class InputReader {
 
         TwoIntListsInput input = new TwoIntListsInput(lists.get(0), lists.get(1));
         return input;
+    }
+
+    public static List<List<Integer>> readLinesOfIntsFromFile(String filePath) {
+
+        List<List<Integer>> lists = null;
+        try {
+            lists = readLinesOfIntsInput(filePath);
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+
+        return lists;
     }
 
     public record TwoIntListsInput(List<Integer> list1, List<Integer> list2) {}
