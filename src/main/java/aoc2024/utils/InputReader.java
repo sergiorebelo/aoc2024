@@ -6,67 +6,72 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class InputReader {
 
-    private static List<List<Integer>> readTwoIntListsInput(String inputFilePath) throws IOException, URISyntaxException {
+    // input data types
 
-        ClassLoader classLoader = InputReader.class.getClassLoader();
-        Path filePath = Path.of(classLoader.getResource(inputFilePath).toURI());
+    public record TwoIntColumns(List<Integer> left, List<Integer> right) {}
 
-        List<List<Integer>> lists = Files.lines(filePath)
-                .map(line -> line.split("\\s+")) // Split on whitespace
+    // getInput methods
+
+    public static TwoIntColumns getInputAsTwoIntColumns(String filePath) {
+        List<List<Integer>> lists = InputReader.convertInputToTwoIntColumns(filePath);
+        TwoIntColumns input = new TwoIntColumns(lists.get(0), lists.get(1));
+        return input;
+    }
+
+    public static List<List<Integer>> getInputAsIntLines(String filePath) {
+        return convertInputToIntLines(filePath);
+    }
+
+    public static String getInputAsOneLine(String filePath) {
+        return readOneLineFromFile(filePath);
+    }
+
+    // conversion methods
+
+    private static List<List<Integer>> convertInputToTwoIntColumns(String inputFilePath)  {
+        return readLinesFromFile(inputFilePath).stream()
+                .map(line -> line.split("\\s+"))
                 .collect(Collectors.teeing(
                         Collectors.mapping(split -> Integer.valueOf(split[0]), Collectors.toList()),
                         Collectors.mapping(split -> Integer.valueOf(split[1]), Collectors.toList()),
                         List::of
                 ));
-
-        return lists;
     }
 
-    private static List<List<Integer>> readLinesOfIntsInput(String inputFilePath) throws IOException, URISyntaxException {
+    private static List<List<Integer>> convertInputToIntLines(String inputFilePath) {
+        return readLinesFromFile(inputFilePath).stream()
+                .map(line -> line.split("\\s+"))
+                .map(line -> Arrays.stream(line).map(Integer::valueOf).toList())
+                .toList();
+    }
+
+    // read from file methods
+
+    private static List<String> readLinesFromFile(String inputFilePath){
 
         ClassLoader classLoader = InputReader.class.getClassLoader();
-        Path filePath = Path.of(classLoader.getResource(inputFilePath).toURI());
 
-        List<List<Integer>> lists = Files.lines(filePath)
-                .map(line -> line.split("\\s+"))
-                .map(report -> Arrays.stream(report)
-                        .map(Integer::valueOf)
-                        .toList())
-                .toList();
-
-        return lists;
-    }
-
-    public static TwoIntListsInput readTwoIntListsFromFile(String filePath) {
-
-        List<List<Integer>> lists = null;
+        Path filePath = null;
         try {
-            lists = InputReader.readTwoIntListsInput(filePath);
-        } catch (IOException | URISyntaxException e) {
+            filePath = Path.of(Objects.requireNonNull(classLoader.getResource(inputFilePath)).toURI());
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
 
-        TwoIntListsInput input = new TwoIntListsInput(lists.get(0), lists.get(1));
-        return input;
-    }
-
-    public static List<List<Integer>> readLinesOfIntsFromFile(String filePath) {
-
-        List<List<Integer>> lists = null;
-        try {
-            lists = readLinesOfIntsInput(filePath);
-        } catch (IOException | URISyntaxException e) {
+        try(Stream<String> lines = Files.lines(filePath)) {
+            return lines.toList();
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        return lists;
     }
 
-    public static String readOneLine(String inputFilePath) {
+    private static String readOneLineFromFile(String inputFilePath) {
         try {
             ClassLoader classLoader = InputReader.class.getClassLoader();
             Path filePath = Path.of(classLoader.getResource(inputFilePath).toURI());
@@ -76,6 +81,4 @@ public class InputReader {
             throw new RuntimeException(e);
         }
     }
-
-    public record TwoIntListsInput(List<Integer> list1, List<Integer> list2) {}
 }

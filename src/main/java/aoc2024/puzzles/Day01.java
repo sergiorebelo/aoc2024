@@ -1,28 +1,38 @@
 package aoc2024.puzzles;
 
+import aoc2024.utils.DailyPuzzle;
+import aoc2024.utils.BaseDailyPuzzle;
 import aoc2024.utils.InputReader;
-import aoc2024.utils.InputReader.TwoIntListsInput;
+import aoc2024.utils.InputReader.TwoIntColumns;
 
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class Day01 {
+public class Day01 extends BaseDailyPuzzle {
 
-    public static int first(String filePath)  {
+    public static void main(String[] args) {
 
-        TwoIntListsInput input = sortInputLists(getInputFromFile(filePath));
+        DailyPuzzle puzzle = new Day01();
+        puzzle.hello();
+    }
 
-        return  IntStream.range(0, input.list1().size())
-                .map(i -> Math.abs(input.list1().get(i) - input.list2().get(i)))
+    public String first(String filePath) { return Integer.toString(solvePartOne(filePath)); }
+    public String second(String filePath) { return Long.toString(solvePartTwo(filePath)); }
+
+    public PuzzleSolution getExpectedSolution() {
+        return new PuzzleSolution("11", "3569916", "31", "26407426");
+    }
+
+    public static int solvePartOne(String filePath)  {
+        TwoIntColumns input = sortInputLists(getInputFromFile(filePath));
+        return  IntStream.range(0, input.left().size())
+                .map(i -> Math.abs(input.left().get(i) - input.right().get(i)))
                 .sum();
     }
 
-    public static long second(String filePath)  {
-
-        TwoIntListsInput input = sortInputLists(getInputFromFile(filePath));
-
-        return IntStream.range(0,input.list1().size())
-                .mapToObj(i -> findSimilarity(input.list1().get(i), input.list2()))
+    public  long solvePartTwo(String filePath)  {
+        TwoIntColumns input = sortInputLists(getInputFromFile(filePath));
+        return input.left().stream().map(integer -> findSimilarity(integer, input.right()))
                 .mapToLong(Long::longValue).sum();
     }
 
@@ -34,12 +44,11 @@ public class Day01 {
         return count*x;
     }
 
-    private static TwoIntListsInput sortInputLists(TwoIntListsInput input) {
-
-        return new TwoIntListsInput(input.list1().stream().sorted().toList(), input.list2().stream().sorted().toList());
+    private static TwoIntColumns sortInputLists(TwoIntColumns input) {
+        return new TwoIntColumns(input.left().stream().sorted().toList(), input.right().stream().sorted().toList());
     }
 
-    private static TwoIntListsInput getInputFromFile(String filePath) {
-        return InputReader.readTwoIntListsFromFile(filePath);
+    private static TwoIntColumns getInputFromFile(String filePath) {
+        return InputReader.getInputAsTwoIntColumns(filePath);
     }
 }

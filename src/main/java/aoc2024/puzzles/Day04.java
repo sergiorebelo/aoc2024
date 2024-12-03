@@ -1,22 +1,27 @@
 package aoc2024.puzzles;
 
-import aoc2024.utils.InputReader;
+import aoc2024.utils.DailyPuzzle;
+import aoc2024.utils.BaseDailyPuzzle;
 
-import java.util.List;
+public class Day04 extends BaseDailyPuzzle {
 
-public class Day04 {
+    public static void main(String[] args) {
 
-    public static long first(String filePath)  {
-
-        return 0;
+        DailyPuzzle puzzle = new Day04();
+        puzzle.hello();
     }
 
-    public static long second(String filePath)  {
-
-        return 0;
+    @Override
+    public String first(String filePath) {
+        return null;
     }
 
-     static List<List<Integer>> getInputFromFile(String filePath) {
-        return InputReader.readLinesOfIntsFromFile(filePath);
+    @Override
+    public String second(String filePath) {
+        return null;
+    }
+
+    public PuzzleSolution getExpectedSolution() {
+        return new PuzzleSolution("0", "0", "", "");
     }
 }

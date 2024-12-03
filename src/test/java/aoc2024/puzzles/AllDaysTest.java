@@ -1,51 +1,54 @@
 package aoc2024.puzzles;
 
+import aoc2024.utils.DailyPuzzle;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class AllDaysTest {
 
     @Test
-    void testDay01() {
-        String exampleFilePath = "inputs/examples/day01.txt";
-        assert(Day01.first(exampleFilePath)==11);
-        assert(Day01.second(exampleFilePath)==31);
+    void tesAllDays() {
 
-        String inputFilePath = "inputs/input_day01.txt";
-        assert(Day01.first(inputFilePath)==3569916);
-        assert(Day01.second(inputFilePath)==26407426);
-    }
+        List<DailyPuzzle> daysToTest = new ArrayList<DailyPuzzle>();
 
-    @Test
-    void testDay02() {
-        String exampleFilePath = "inputs/examples/day02.txt";
-        assert(Day02.first(exampleFilePath)==2);
-        assert(Day02.second(exampleFilePath)==4);
+        daysToTest.add(new Day01());
+        daysToTest.add(new Day02());
+        daysToTest.add(new Day03());
+        //daysToTest.add(new Day04());
+        //daysToTest.add(new Day05());
+        //daysToTest.add(new Day06());
+        //daysToTest.add(new Day07());
+        //daysToTest.add(new Day08());
+        //daysToTest.add(new Day09());
+        //daysToTest.add(new Day10());
+        //daysToTest.add(new Day11());
+        //daysToTest.add(new Day12());
+        //daysToTest.add(new Day13());
+        //daysToTest.add(new Day14());
+        //daysToTest.add(new Day15());
+        //daysToTest.add(new Day16());
+        //daysToTest.add(new Day17());
+        //daysToTest.add(new Day18());
+        //daysToTest.add(new Day19());
+        //daysToTest.add(new Day20());
+        //daysToTest.add(new Day21());
+        //daysToTest.add(new Day22());
+        //daysToTest.add(new Day23());
+        //daysToTest.add(new Day24());
 
-        String inputFilePath = "inputs/input_day02.txt";
-        assert(Day02.first(inputFilePath)==660);
-        assert(Day02.second(inputFilePath)==689);
-    }
+        for (DailyPuzzle puzzle : daysToTest) {
 
-    @Test
-    void testDay03() {
-        String exampleFilePath = "inputs/examples/day03.txt";
-        assert(Day03.first(exampleFilePath)==161);
-        exampleFilePath = "inputs/examples/day03_02.txt";
-        assert(Day03.second(exampleFilePath)==48);
+            DailyPuzzle.PuzzleSolution solution = puzzle.solve();
+            DailyPuzzle.PuzzleSolution expected = puzzle.getExpectedSolution();
 
-        String inputFilePath = "inputs/input_day03.txt";
-        assert(Day03.first(inputFilePath)==192767529);
-        assert(Day03.second(inputFilePath)==104083373);
-    }
+            assert (solution.firstTest().equals(expected.firstTest()));
+            assert (solution.firstResult().equals(expected.firstResult()));
+            assert (solution.secondTest().equals(expected.secondTest()));
+            assert (solution.secondResult().equals(expected.secondResult()));
 
-    @Test
-    void testDay04() {
-        String exampleFilePath = "inputs/examples/day04.txt";
-        assert(Day04.first(exampleFilePath)==0);
-        assert(Day04.second(exampleFilePath)==0);
-
-        String inputFilePath = "inputs/input_day04.txt";
-        assert(Day04.first(inputFilePath)==0);
-        assert(Day04.second(inputFilePath)==0);
+            System.out.println("Day " + puzzle.getDay() + " OK!");
+        }
     }
 }

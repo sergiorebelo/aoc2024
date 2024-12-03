@@ -1,26 +1,32 @@
 package aoc2024.puzzles;
 
+import aoc2024.utils.DailyPuzzle;
+import aoc2024.utils.BaseDailyPuzzle;
 import aoc2024.utils.InputReader;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Day03 {
+public class Day03 extends BaseDailyPuzzle {
 
-    public static int first(String filePath)  {
+    public static void main(String[] args) {
+
+        DailyPuzzle puzzle = new Day03();
+        puzzle.hello();
+    }
+
+    public String first(String filePath)  {
 
         Matcher matcher = Pattern.compile("mul\\(\\d{1,3},\\d{1,3}\\)").matcher(getInputFromFile(filePath));
         int sum = 0;
         while (matcher.find()) {
             sum += getMultiplication(matcher);
         }
-        return sum;
+        return Integer.toString(sum);
     }
 
-    public static long second(String filePath)  {
+    public String second(String filePath)  {
 
         String input = getInputFromFile(filePath);
         Matcher matcher = Pattern.compile("mul\\(\\d{1,3},\\d{1,3}\\)").matcher(input);
@@ -31,7 +37,10 @@ public class Day03 {
             int index = matcher.start();
             if (actions.mostRecentActionBefore(index)) sum += getMultiplication(matcher);
         }
-        return sum;
+        return Long.toString(sum);
+    }
+    public PuzzleSolution getExpectedSolution() {
+        return new PuzzleSolution("161", "192767529", "48", "104083373");
     }
 
     private static int getMultiplication(Matcher matcher) {
@@ -42,7 +51,7 @@ public class Day03 {
     }
 
     static String getInputFromFile(String filePath) {
-        return InputReader.readOneLine(filePath);
+        return InputReader.getInputAsOneLine(filePath);
     }
 
     public record Actions(ArrayList<Integer> actionsDo, ArrayList<Integer> actionsDont) {
