@@ -29,11 +29,23 @@ class AllDaysTest {
     @Test
     void testDay03() {
         String exampleFilePath = "inputs/examples/day03.txt";
-        assert(Day03.first(exampleFilePath)==0);
-        assert(Day03.second(exampleFilePath)==0);
+        assert(Day03.first(exampleFilePath)==161);
+        exampleFilePath = "inputs/examples/day03_02.txt";
+        assert(Day03.second(exampleFilePath)==48);
 
         String inputFilePath = "inputs/input_day03.txt";
-        assert(Day03.first(inputFilePath)==0);
-        assert(Day03.second(inputFilePath)==0);
+        assert(Day03.first(inputFilePath)==192767529);
+        assert(Day03.second(inputFilePath)==104083373);
+    }
+
+    @Test
+    void testDay04() {
+        String exampleFilePath = "inputs/examples/day04.txt";
+        assert(Day04.first(exampleFilePath)==0);
+        assert(Day04.second(exampleFilePath)==0);
+
+        String inputFilePath = "inputs/input_day04.txt";
+        assert(Day04.first(inputFilePath)==0);
+        assert(Day04.second(inputFilePath)==0);
     }
 }

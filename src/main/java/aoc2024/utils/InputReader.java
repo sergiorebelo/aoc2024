@@ -66,5 +66,16 @@ public class InputReader {
         return lists;
     }
 
+    public static String readOneLine(String inputFilePath) {
+        try {
+            ClassLoader classLoader = InputReader.class.getClassLoader();
+            Path filePath = Path.of(classLoader.getResource(inputFilePath).toURI());
+
+            return Files.readString(filePath);
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public record TwoIntListsInput(List<Integer> list1, List<Integer> list2) {}
 }
