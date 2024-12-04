@@ -16,7 +16,7 @@ class AllDaysTest {
         daysToTest.add(new Day01());
         daysToTest.add(new Day02());
         daysToTest.add(new Day03());
-        //daysToTest.add(new Day04());
+        daysToTest.add(new Day04());
         //daysToTest.add(new Day05());
         //daysToTest.add(new Day06());
         //daysToTest.add(new Day07());

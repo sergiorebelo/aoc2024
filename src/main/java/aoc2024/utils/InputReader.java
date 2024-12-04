@@ -16,6 +16,8 @@ public class InputReader {
 
     public record TwoIntColumns(List<Integer> left, List<Integer> right) {}
 
+
+
     // getInput methods
 
     public static TwoIntColumns getInputAsTwoIntColumns(String filePath) {
@@ -32,10 +34,16 @@ public class InputReader {
         return readOneLineFromFile(filePath);
     }
 
+    public static TextSoup getInputAsTextMatrix(String filePath) {
+        return new TextSoup(readListOfLinesFromFile(filePath).stream()
+                .map(String::toCharArray)
+                .toArray(char[][]::new));
+    }
+
     // conversion methods
 
     private static List<List<Integer>> convertInputToTwoIntColumns(String inputFilePath)  {
-        return readLinesFromFile(inputFilePath).stream()
+        return readListOfLinesFromFile(inputFilePath).stream()
                 .map(line -> line.split("\\s+"))
                 .collect(Collectors.teeing(
                         Collectors.mapping(split -> Integer.valueOf(split[0]), Collectors.toList()),
@@ -45,7 +53,7 @@ public class InputReader {
     }
 
     private static List<List<Integer>> convertInputToIntLines(String inputFilePath) {
-        return readLinesFromFile(inputFilePath).stream()
+        return readListOfLinesFromFile(inputFilePath).stream()
                 .map(line -> line.split("\\s+"))
                 .map(line -> Arrays.stream(line).map(Integer::valueOf).toList())
                 .toList();
@@ -53,7 +61,7 @@ public class InputReader {
 
     // read from file methods
 
-    private static List<String> readLinesFromFile(String inputFilePath){
+    private static List<String> readListOfLinesFromFile(String inputFilePath){
 
         ClassLoader classLoader = InputReader.class.getClassLoader();
 

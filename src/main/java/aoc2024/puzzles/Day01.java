@@ -32,8 +32,10 @@ public class Day01 extends BaseDailyPuzzle {
 
     public  long solvePartTwo(String filePath)  {
         TwoIntColumns input = sortInputLists(getInputFromFile(filePath));
-        return input.left().stream().map(integer -> findSimilarity(integer, input.right()))
-                .mapToLong(Long::longValue).sum();
+        return input.left().stream()
+                .map(integer -> findSimilarity(integer, input.right()))
+                .mapToLong(Long::longValue)
+                .sum();
     }
 
     private static long findSimilarity(int x, List<Integer> sortedList) {
