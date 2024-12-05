@@ -1,9 +1,9 @@
 package aoc2024.puzzles;
 
-import aoc2024.utils.DailyPuzzle;
+import aoc2024.models.TwoIntColumns;
 import aoc2024.utils.BaseDailyPuzzle;
+import aoc2024.utils.DailyPuzzle;
 import aoc2024.utils.InputReader;
-import aoc2024.utils.InputReader.TwoIntColumns;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -39,11 +39,10 @@ public class Day01 extends BaseDailyPuzzle {
     }
 
     private static long findSimilarity(int x, List<Integer> sortedList) {
-        long count = sortedList.stream()
+        return x * sortedList.stream()
                 .takeWhile(y -> y <= x)
                 .filter(y -> y == x)
                 .count();
-        return count*x;
     }
 
     private static TwoIntColumns sortInputLists(TwoIntColumns input) {

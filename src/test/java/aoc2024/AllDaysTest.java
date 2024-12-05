@@ -1,5 +1,10 @@
-package aoc2024.puzzles;
+package aoc2024;
 
+import aoc2024.puzzles.Day01;
+import aoc2024.puzzles.Day02;
+import aoc2024.puzzles.Day03;
+import aoc2024.puzzles.Day04;
+import aoc2024.puzzles.Day05;
 import aoc2024.utils.DailyPuzzle;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +22,7 @@ class AllDaysTest {
         daysToTest.add(new Day02());
         daysToTest.add(new Day03());
         daysToTest.add(new Day04());
-        //daysToTest.add(new Day05());
+        daysToTest.add(new Day05());
         //daysToTest.add(new Day06());
         //daysToTest.add(new Day07());
         //daysToTest.add(new Day08());
@@ -39,7 +44,6 @@ class AllDaysTest {
         //daysToTest.add(new Day24());
 
         for (DailyPuzzle puzzle : daysToTest) {
-
             DailyPuzzle.PuzzleSolution solution = puzzle.solve();
             DailyPuzzle.PuzzleSolution expected = puzzle.getExpectedSolution();
 

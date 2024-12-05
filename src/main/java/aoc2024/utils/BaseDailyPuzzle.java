@@ -14,11 +14,11 @@ public abstract class BaseDailyPuzzle implements DailyPuzzle {
     }
 
     private String inputFilePath() {
-        return "inputs/input_day" + getDay() + ".txt";
+        return "aoc2024/inputs/input_day" + getDay() + ".txt";
     }
 
     private String testFilePath() {
-        return "inputs/examples/day" + getDay() + ".txt";
+        return "aoc2024/examples/day" + getDay() + ".txt";
     }
 
     @Override

@@ -1,5 +1,9 @@
 package aoc2024.utils;
 
+import aoc2024.models.RulesAndUpdates;
+import aoc2024.models.TextSoup;
+import aoc2024.models.TwoIntColumns;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -11,6 +15,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class InputReader {
+
+    static ClassLoader classLoader = InputReader.class.getClassLoader();
+
+    /////////////////////////////////////////////////////////////////////////////////
+    // getInput methods are used by the Puzzles to get the input in the desired model
+    /////////////////////////////////////////////////////////////////////////////////
+
     public static RulesAndUpdates GetInputAsRulesAndUpdates(String filePath) {
         List<String> lines = InputReader.readListOfLinesFromFile(filePath);
         int emptyLine = lines.indexOf("");
@@ -19,20 +30,22 @@ public class InputReader {
         return new RulesAndUpdates(rules, updates);
     }
 
-    // input data types
-
-    public record TwoIntColumns(List<Integer> left, List<Integer> right) {}
-
-    // getInput methods
-
     public static TwoIntColumns getInputAsTwoIntColumns(String filePath) {
-        List<List<Integer>> lists = InputReader.convertInputToTwoIntColumns(filePath);
-        TwoIntColumns input = new TwoIntColumns(lists.get(0), lists.get(1));
-        return input;
+        List<List<Integer>> lists = readListOfLinesFromFile(filePath).stream()
+                .map(line -> line.split("\\s+"))
+                .collect(Collectors.teeing(
+                        Collectors.mapping(split -> Integer.valueOf(split[0]), Collectors.toList()),
+                        Collectors.mapping(split -> Integer.valueOf(split[1]), Collectors.toList()),
+                        List::of
+                ));
+        return new TwoIntColumns(lists.get(0), lists.get(1));
     }
 
     public static List<List<Integer>> getInputAsIntLines(String filePath) {
-        return convertInputToIntLines(filePath);
+        return readListOfLinesFromFile(filePath).stream()
+                .map(line -> line.split("\\s+"))
+                .map(line -> Arrays.stream(line).map(Integer::valueOf).toList())
+                .toList();
     }
 
     public static String getInputAsOneLine(String filePath) {
@@ -45,53 +58,27 @@ public class InputReader {
                 .toArray(char[][]::new));
     }
 
-    // conversion methods
-
-    private static List<List<Integer>> convertInputToTwoIntColumns(String inputFilePath)  {
-        return readListOfLinesFromFile(inputFilePath).stream()
-                .map(line -> line.split("\\s+"))
-                .collect(Collectors.teeing(
-                        Collectors.mapping(split -> Integer.valueOf(split[0]), Collectors.toList()),
-                        Collectors.mapping(split -> Integer.valueOf(split[1]), Collectors.toList()),
-                        List::of
-                ));
-    }
-
-    private static List<List<Integer>> convertInputToIntLines(String inputFilePath) {
-        return readListOfLinesFromFile(inputFilePath).stream()
-                .map(line -> line.split("\\s+"))
-                .map(line -> Arrays.stream(line).map(Integer::valueOf).toList())
-                .toList();
-    }
-
-    // read from file methods
+    /////////////////////////////////////////////////////////////////////////////////
+    // read from File methods
+    /////////////////////////////////////////////////////////////////////////////////
 
     private static List<String> readListOfLinesFromFile(String inputFilePath){
-
-        ClassLoader classLoader = InputReader.class.getClassLoader();
-
-        Path filePath = null;
-        try {
-            filePath = Path.of(Objects.requireNonNull(classLoader.getResource(inputFilePath)).toURI());
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-
-        try(Stream<String> lines = Files.lines(filePath)) {
+        try(Stream<String> lines = Files.lines(getPath(inputFilePath))) {
             return lines.toList();
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }
 
     private static String readOneLineFromFile(String inputFilePath) {
         try {
-            ClassLoader classLoader = InputReader.class.getClassLoader();
-            Path filePath = Path.of(classLoader.getResource(inputFilePath).toURI());
-
-            return Files.readString(filePath);
+            return Files.readString(getPath(inputFilePath));
         } catch (IOException | URISyntaxException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static Path getPath(String inputFilePath) throws URISyntaxException {
+        return Path.of(Objects.requireNonNull(classLoader.getResource(inputFilePath)).toURI());
     }
 }
