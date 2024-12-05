@@ -11,12 +11,17 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class InputReader {
+    public static RulesAndUpdates GetInputAsRulesAndUpdates(String filePath) {
+        List<String> lines = InputReader.readListOfLinesFromFile(filePath);
+        int emptyLine = lines.indexOf("");
+        List<String> rules = lines.subList(0, emptyLine);
+        List<String> updates = lines.subList(emptyLine+1, lines.size());
+        return new RulesAndUpdates(rules, updates);
+    }
 
     // input data types
 
     public record TwoIntColumns(List<Integer> left, List<Integer> right) {}
-
-
 
     // getInput methods
 
