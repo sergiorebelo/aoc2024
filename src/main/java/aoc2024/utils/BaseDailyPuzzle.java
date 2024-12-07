@@ -17,7 +17,7 @@ public abstract class BaseDailyPuzzle implements DailyPuzzle {
         return "aoc2024/inputs/input_day" + getDay() + ".txt";
     }
 
-    private String testFilePath() {
+    protected String testFilePath() {
         return "aoc2024/examples/day" + getDay() + ".txt";
     }
 

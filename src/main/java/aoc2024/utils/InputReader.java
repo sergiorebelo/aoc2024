@@ -1,5 +1,7 @@
 package aoc2024.utils;
 
+import aoc2024.models.Calibration;
+import aoc2024.models.LabMap;
 import aoc2024.models.RulesAndUpdates;
 import aoc2024.models.TextSoup;
 import aoc2024.models.TwoIntColumns;
@@ -17,6 +19,30 @@ import java.util.stream.Stream;
 public class InputReader {
 
     static ClassLoader classLoader = InputReader.class.getClassLoader();
+
+    /////////////////////////////////////////////////////////////////////////////////
+    // read from File methods
+    /////////////////////////////////////////////////////////////////////////////////
+
+    private static List<String> readListOfLinesFromFile(String inputFilePath){
+        try(Stream<String> lines = Files.lines(getPath(inputFilePath))) {
+            return lines.toList();
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static String readOneLineFromFile(String inputFilePath) {
+        try {
+            return Files.readString(getPath(inputFilePath));
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static Path getPath(String inputFilePath) throws URISyntaxException {
+        return Path.of(Objects.requireNonNull(classLoader.getResource(inputFilePath)).toURI());
+    }
 
     /////////////////////////////////////////////////////////////////////////////////
     // getInput methods are used by the Puzzles to get the input in the desired model
@@ -57,28 +83,11 @@ public class InputReader {
                 .map(String::toCharArray)
                 .toArray(char[][]::new));
     }
-
-    /////////////////////////////////////////////////////////////////////////////////
-    // read from File methods
-    /////////////////////////////////////////////////////////////////////////////////
-
-    private static List<String> readListOfLinesFromFile(String inputFilePath){
-        try(Stream<String> lines = Files.lines(getPath(inputFilePath))) {
-            return lines.toList();
-        } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+    public static LabMap getInputAsLabMap(String filePath) {
+        return new LabMap(readListOfLinesFromFile(filePath));
     }
 
-    private static String readOneLineFromFile(String inputFilePath) {
-        try {
-            return Files.readString(getPath(inputFilePath));
-        } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static Path getPath(String inputFilePath) throws URISyntaxException {
-        return Path.of(Objects.requireNonNull(classLoader.getResource(inputFilePath)).toURI());
+    public static List<Calibration> getInputAsCalibrations(String filePath) {
+        return readListOfLinesFromFile(filePath).stream().map(Calibration::new).collect(Collectors.toList());
     }
 }
