@@ -78,11 +78,18 @@ public class InputReader {
         return readOneLineFromFile(filePath);
     }
 
+
+
     public static TextSoup getInputAsTextMatrix(String filePath) {
-        return new TextSoup(readListOfLinesFromFile(filePath).stream()
-                .map(String::toCharArray)
-                .toArray(char[][]::new));
+        return new TextSoup(getInputAsCharMatrix(filePath));
     }
+
+    public static char[][] getInputAsCharMatrix(String filePath) {
+        return readListOfLinesFromFile(filePath).stream()
+                .map(String::toCharArray)
+                .toArray(char[][]::new);
+    }
+
     public static LabMap getInputAsLabMap(String filePath) {
         return new LabMap(readListOfLinesFromFile(filePath));
     }

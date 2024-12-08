@@ -1,5 +1,6 @@
 package aoc2024.models;
 
+import aoc2024.utils.Position;
 import lombok.ToString;
 
 import java.util.List;
@@ -141,24 +142,7 @@ public class LabMap {
         }
     }
 
-    private static class Position {
-        int x, y;
 
-        public Position(int x, int y) { this.x = x; this.y = y; }
-
-        int x() { return x; }
-        int y() { return y; }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Position position = (Position) o;
-            return x == position.x && y == position.y;
-        }
-        @Override
-        public int hashCode() { return Objects.hash(x, y); }
-    }
 
     public static class LoopException extends Throwable {}
 }
