@@ -8,16 +8,17 @@ import aoc2024.puzzles.*;
 import aoc2024.puzzles.Day05;
 
 public class Main {
+
     public static void main(String[] args) {
         Day01.main(args);
         Day02.main(args);
         Day03.main(args);
         Day04.main(args);
         Day05.main(args);
-//        Day06.main(args);
-//        Day07.main(args);
-//        Day08.main(args);
-//        Day09.main(args);
+        Day06.main(args);
+        Day07.main(args);
+        Day08.main(args);
+        Day09.main(args);
 //        Day10.main(args);
 //        Day11.main(args);
 //        Day12.main(args);

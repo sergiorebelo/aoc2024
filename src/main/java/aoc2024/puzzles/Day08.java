@@ -1,11 +1,11 @@
 package aoc2024.puzzles;
 
-import aoc2024.models.CharMatrix;
-import aoc2024.utils.BaseDailyPuzzle;
-import aoc2024.utils.DailyPuzzle;
-import aoc2024.utils.InputReader;
-import aoc2024.utils.Pair;
-import aoc2024.utils.Position;
+import aoc2024.utils.matrix.CharMatrix;
+import aoc2024.utils.puzzles.BaseDailyPuzzle;
+import aoc2024.utils.puzzles.DailyPuzzle;
+import aoc2024.utils.files.InputReader;
+import aoc2024.utils.data.Pair;
+import aoc2024.utils.matrix.Position;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,11 +16,17 @@ import java.util.Set;
 
 public class Day08 extends BaseDailyPuzzle {
 
+    public static String SOLUTION_TEST_1 = "14";
+    public static String SOLUTION_TEST_2 = "34";
+    public static String SOLUTION_INPUT_1 = "308";
+    public static String SOLUTION_INPUT_2 = "1147";
 
     public static void main(String[] args) {
         DailyPuzzle puzzle = new Day08();
+        puzzle.setExpectedSolution(new PuzzleSolution(SOLUTION_TEST_1, SOLUTION_INPUT_1, SOLUTION_TEST_2, SOLUTION_INPUT_2));
         puzzle.hello();
     }
+
     public String first(String filePath) {
         AntennaMap input = getInputAsAntennaMap(filePath);
         return input.getNumberOfAntinodes() + "";
@@ -30,14 +36,9 @@ public class Day08 extends BaseDailyPuzzle {
         return new AntennaMap(InputReader.getInputAsCharMatrix(filePath));
     }
 
-
     public String second(String filePath) {
         AntennaMap input = getInputAsAntennaMap(filePath);
         return input.getNumberOfNewAntinodes() + "";
-    }
-
-    public PuzzleSolution getExpectedSolution() {
-        return new PuzzleSolution("14", "308", "34", "1147");
     }
 
     private class AntennaMap {

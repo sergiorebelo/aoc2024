@@ -1,4 +1,4 @@
-package aoc2024.utils;
+package aoc2024.utils.puzzles;
 
 public abstract class BaseDailyPuzzle implements DailyPuzzle {
 
@@ -12,6 +12,13 @@ public abstract class BaseDailyPuzzle implements DailyPuzzle {
                 second(testFilePath()),
                 second(inputFilePath()));
     }
+    PuzzleSolution solution;
+
+    public PuzzleSolution getExpectedSolution() {
+        return solution;
+    }
+
+    public void setExpectedSolution(PuzzleSolution solution) {this.solution = solution;}
 
     private String inputFilePath() {
         return "aoc2024/inputs/input_day" + getDay() + ".txt";

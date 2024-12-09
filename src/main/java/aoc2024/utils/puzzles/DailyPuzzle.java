@@ -1,13 +1,8 @@
-package aoc2024.utils;
+package aoc2024.utils.puzzles;
 
 public interface DailyPuzzle {
 
     public record PuzzleSolution(String firstTest, String firstResult, String secondTest, String secondResult) { }
-
-    int TEST_FIRST_VALUE = 0;
-    int TEST_SECOND_VALUE = 0;
-    int RESULT_FIRST_VALUE = 0;
-    int RESULT_SECOND_VALUE = 0;
 
     String first(String filePath);
 
@@ -16,6 +11,8 @@ public interface DailyPuzzle {
     PuzzleSolution solve();
 
     PuzzleSolution getExpectedSolution();
+
+    void setExpectedSolution(PuzzleSolution solution);
 
     String getDay();
 

@@ -1,4 +1,4 @@
-package aoc2024.utils;
+package aoc2024.utils.data;
 
 import lombok.Getter;
 

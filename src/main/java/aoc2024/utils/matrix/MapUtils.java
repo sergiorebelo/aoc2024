@@ -1,4 +1,4 @@
-package aoc2024.utils;
+package aoc2024.utils.matrix;
 
 public class MapUtils {
 

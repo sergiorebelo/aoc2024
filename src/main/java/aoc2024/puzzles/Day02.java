@@ -1,30 +1,33 @@
 package aoc2024.puzzles;
 
-import aoc2024.utils.BaseDailyPuzzle;
-import aoc2024.utils.DailyPuzzle;
-import aoc2024.utils.InputReader;
+import aoc2024.utils.puzzles.BaseDailyPuzzle;
+import aoc2024.utils.puzzles.DailyPuzzle;
+import aoc2024.utils.files.InputReader;
 
 import java.util.List;
 import java.util.stream.IntStream;
 
 public class Day02 extends BaseDailyPuzzle {
 
+    public static String SOLUTION_TEST_1 = "2";
+    public static String SOLUTION_TEST_2 = "4";
+    public static String SOLUTION_INPUT_1 = "660";
+    public static String SOLUTION_INPUT_2 = "689";
+
     public static void main(String[] args) {
 
         DailyPuzzle puzzle = new Day02();
+        puzzle.setExpectedSolution(new PuzzleSolution(SOLUTION_TEST_1, SOLUTION_INPUT_1, SOLUTION_TEST_2, SOLUTION_INPUT_2));
         puzzle.hello();
     }
 
-    public PuzzleSolution getExpectedSolution() {
-        return new PuzzleSolution("2", "660", "4", "689");
-    }
-
     public String first(String filePath)  {
-        return Long.toString(getInputFromFile(filePath).stream().filter(Day02::isReportSafe).count());
+        return Long.toString(InputReader.getInputAsIntLines(filePath).stream().filter(Day02::isReportSafe).count());
     }
 
     public String second(String filePath)  {
-        return Long.toString(getInputFromFile(filePath).stream().filter(Day02::isReportSafeWithTolerance).count());
+        return Long.toString(InputReader.getInputAsIntLines(filePath).stream()
+                .filter(Day02::isReportSafeWithTolerance).count());
     }
 
      static boolean isReportSafeWithTolerance(List<Integer> report) {
@@ -54,9 +57,5 @@ public class Day02 extends BaseDailyPuzzle {
      static boolean isReportSafeAscending(List<Integer> report) {
         return IntStream.range(1, report.size())
                 .allMatch(i-> report.get(i) - report.get(i-1) > 0 &&  report.get(i) - report.get(i-1) < 4);
-    }
-
-     static List<List<Integer>> getInputFromFile(String filePath) {
-        return InputReader.getInputAsIntLines(filePath);
     }
 }

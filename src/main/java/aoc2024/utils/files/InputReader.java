@@ -1,10 +1,4 @@
-package aoc2024.utils;
-
-import aoc2024.models.Calibration;
-import aoc2024.models.LabMap;
-import aoc2024.models.RulesAndUpdates;
-import aoc2024.models.TextSoup;
-import aoc2024.models.TwoIntColumns;
+package aoc2024.utils.files;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -48,23 +42,12 @@ public class InputReader {
     // getInput methods are used by the Puzzles to get the input in the desired model
     /////////////////////////////////////////////////////////////////////////////////
 
-    public static RulesAndUpdates GetInputAsRulesAndUpdates(String filePath) {
-        List<String> lines = InputReader.readListOfLinesFromFile(filePath);
-        int emptyLine = lines.indexOf("");
-        List<String> rules = lines.subList(0, emptyLine);
-        List<String> updates = lines.subList(emptyLine+1, lines.size());
-        return new RulesAndUpdates(rules, updates);
+    public static String getInputAsOneLine(String filePath) {
+        return readOneLineFromFile(filePath);
     }
 
-    public static TwoIntColumns getInputAsTwoIntColumns(String filePath) {
-        List<List<Integer>> lists = readListOfLinesFromFile(filePath).stream()
-                .map(line -> line.split("\\s+"))
-                .collect(Collectors.teeing(
-                        Collectors.mapping(split -> Integer.valueOf(split[0]), Collectors.toList()),
-                        Collectors.mapping(split -> Integer.valueOf(split[1]), Collectors.toList()),
-                        List::of
-                ));
-        return new TwoIntColumns(lists.get(0), lists.get(1));
+    public static List<String> getInputAsLines(String filePath) {
+        return readListOfLinesFromFile(filePath);
     }
 
     public static List<List<Integer>> getInputAsIntLines(String filePath) {
@@ -74,27 +57,18 @@ public class InputReader {
                 .toList();
     }
 
-    public static String getInputAsOneLine(String filePath) {
-        return readOneLineFromFile(filePath);
-    }
-
-
-
-    public static TextSoup getInputAsTextMatrix(String filePath) {
-        return new TextSoup(getInputAsCharMatrix(filePath));
-    }
-
     public static char[][] getInputAsCharMatrix(String filePath) {
         return readListOfLinesFromFile(filePath).stream()
                 .map(String::toCharArray)
                 .toArray(char[][]::new);
     }
 
-    public static LabMap getInputAsLabMap(String filePath) {
-        return new LabMap(readListOfLinesFromFile(filePath));
-    }
-
-    public static List<Calibration> getInputAsCalibrations(String filePath) {
-        return readListOfLinesFromFile(filePath).stream().map(Calibration::new).collect(Collectors.toList());
+    public static List<List<String>> getInputAsColumnsWithSeparator(String filePath, String separator) {
+        return readListOfLinesFromFile(filePath).stream()
+                .map(line -> line.split(separator))
+                .collect(Collectors.teeing(
+                        Collectors.mapping(split -> split[0], Collectors.toList()),
+                        Collectors.mapping(split -> split[1], Collectors.toList()),
+                        List::of));
     }
 }
