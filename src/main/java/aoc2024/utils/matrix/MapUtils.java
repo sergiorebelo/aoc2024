@@ -9,6 +9,13 @@ public class MapUtils {
             System.out.print("\n");
         }
     }
+    public static void print(int[][] map) {
+        for (int[] chars : map) {
+            for (int x = 0; x < map[0].length; x++)
+                System.out.print(chars[x] + " ");
+            System.out.print("\n");
+        }
+    }
     public static void printAOverBOverC(char[][] a, char[][] b, char[][] c) {
         for (int y = 0; y < a.length; y++) {
             for (int x = 0; x < a[0].length; x++)

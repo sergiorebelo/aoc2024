@@ -21,4 +21,12 @@ public class Position {
     public int hashCode() { return Objects.hash(x, y); }
 
     public String toString() { return "(" + x + "," + y + ")"; }
+
+    public Position North() { return new Position(x,y-1); }
+
+    public Position East() { return new Position(x+1,y); }
+
+    public Position South() { return new Position(x,y+1); }
+
+    public Position West() { return new Position(x-1,y); }
 }
