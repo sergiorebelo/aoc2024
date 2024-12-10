@@ -12,7 +12,6 @@ public class CharMatrix {
     private final int height;
 
     public CharMatrix(char[][] input) {
-
         this.model = input;
         this.width=input[0].length;
         this.height= input.length;
@@ -27,5 +26,7 @@ public class CharMatrix {
     public char get(int x, int y) { return model[y][x]; }
 
     public void set(int x, int y, char c) { model[y][x] = c; }
+
+    public String toSTring() { return MapUtils.print(model); }
 
 }

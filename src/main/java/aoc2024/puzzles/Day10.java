@@ -2,17 +2,14 @@ package aoc2024.puzzles;
 
 import aoc2024.utils.files.InputReader;
 import aoc2024.utils.matrix.IntMatrix;
-import aoc2024.utils.matrix.MapUtils;
 import aoc2024.utils.matrix.Position;
 import aoc2024.utils.puzzles.BaseDailyPuzzle;
 import aoc2024.utils.puzzles.DailyPuzzle;
 import org.apache.commons.collections4.Bag;
 import org.apache.commons.collections4.bag.HashBag;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -48,8 +45,8 @@ public class Day10 extends BaseDailyPuzzle {
         }
 
         private void findTrailHeads() {
-            for (int x = 0; x < map.width(); x++)
-                for (int y=0; y<map.height(); y++)
+            for (int x = 0; x < map.getWidth(); x++)
+                for (int y = 0; y<map.getHeight(); y++)
                     if (map.get(x,y)==0) trailheads.add(new TrailHead(new TopographicXY(new Position(x,y), 0)));
         }
 
@@ -97,17 +94,15 @@ public class Day10 extends BaseDailyPuzzle {
 
         private class TrailHead {
 
-            private Map<Position, Trail> trails = new HashMap<>();
-            private Bag<Trail> allTrails = new HashBag<>();
-            Position pos;
+            private final Map<Position, Trail> trails = new HashMap<>();
+            private final Bag<Trail> allTrails = new HashBag<>();
+            private final Position pos;
 
-            public TrailHead(TopographicXY topo) {
-                this.pos = topo.pos();
-            }
+            public TrailHead(TopographicXY topo) { this.pos = topo.pos(); }
 
             public void addTrail(Trail trail) {
-                trails.put(trail.paths()[9].pos(), trail);
-                allTrails.add(trail);
+                trails.put(trail.paths()[9].pos(), trail); //Part 1
+                allTrails.add(trail); //Part 2
             }
 
             public int getScore() { return trails.size(); }

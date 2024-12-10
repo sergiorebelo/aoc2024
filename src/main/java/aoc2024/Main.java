@@ -19,7 +19,7 @@ public class Main {
         Day07.main(args);
         Day08.main(args);
         Day09.main(args);
-//        Day10.main(args);
+        Day10.main(args);
 //        Day11.main(args);
 //        Day12.main(args);
 //        Day13.main(args);
