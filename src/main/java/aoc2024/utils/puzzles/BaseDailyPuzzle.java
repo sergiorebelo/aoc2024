@@ -1,17 +1,24 @@
 package aoc2024.utils.puzzles;
 
+import java.time.LocalDateTime;
+
 public abstract class BaseDailyPuzzle implements DailyPuzzle {
 
+    public PuzzleSolution solve(String filePath1,  String filePath2 ) {
 
+        long now = System.currentTimeMillis();
+        String result1 = first(filePath1);
+        long firstTime = System.currentTimeMillis()-now;
+        now = System.currentTimeMillis();
+        String result2 = second(filePath2);
+        long secondTime  = System.currentTimeMillis()-now;
+        
+        return new PuzzleSolution(result1, firstTime, result2,  secondTime );
+    }
 
     @Override
-    public PuzzleSolution solve() {
-        return new PuzzleSolution(
-                first(testFilePath()),
-                first(inputFilePath()),
-                second(testFilePath()),
-                second(inputFilePath()));
-    }
+    public PuzzleSolution solve(String filePath) { return solve(filePath, filePath); }
+
     PuzzleSolution solution;
 
     public PuzzleSolution getExpectedSolution() {
@@ -38,15 +45,17 @@ public abstract class BaseDailyPuzzle implements DailyPuzzle {
     public void hello() {
 
         String day = getDay();
-        PuzzleSolution solution = solve();
-        PuzzleSolution expected = getExpectedSolution();
+        PuzzleSolution solution  = solve(testFilePath());
 
-        System.out.println("\n\nHello and welcome to day " + day + "!\n\n");
-        System.out.println("## PART ONE ##");
-        System.out.println("Test  : " + solution.firstTest() + " (" + expected.firstTest() + ")");
-        System.out.println("Result: " + solution.firstResult() + " (" + expected.firstResult() + ")");
-        System.out.println("\n### PART TWO ##");
-        System.out.println("Test  : " + solution.secondTest() + " (" + expected.secondTest() + ")");
-        System.out.println("Result: " + solution.secondResult() + " (" + expected.secondResult() + ")");
+        System.out.println("\nHello and welcome to day " + day + "!\n");
+        System.out.println("\t## TEST ##");
+        System.out.println("\tPart 1 : " + solution.result1() + " " + (solution.result1().equals(getExpectedSolution().result1())? "OK" : "NOK") + " (" + solution.time1() + " milliseconds)");
+        System.out.println("\tPart 2 : " + solution.result2() + " " + (solution.result2().equals(getExpectedSolution().result2())? "OK" : "NOK") + " (" + solution.time2() + " milliseconds)");
+
+        solution  = solve(inputFilePath());
+
+        System.out.println("\t## My Input ##");
+        System.out.println("\tPart 1 : " + solution.result1() + " (" + solution.time1() + " milliseconds)");
+        System.out.println("\tPart 2 : " + solution.result2() + " (" + solution.time2() + " milliseconds)");
     }
 }

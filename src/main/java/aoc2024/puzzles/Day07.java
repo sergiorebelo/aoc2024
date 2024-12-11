@@ -19,7 +19,7 @@ public class Day07 extends BaseDailyPuzzle {
 
     public static void main(String[] args) {
         DailyPuzzle puzzle = new Day07();
-        puzzle.setExpectedSolution(new PuzzleSolution(SOLUTION_TEST_1, SOLUTION_INPUT_1, SOLUTION_TEST_2, SOLUTION_INPUT_2));
+        puzzle.setExpectedSolution(new PuzzleSolution(SOLUTION_TEST_1, 0, SOLUTION_TEST_2, 0));
         puzzle.hello();
     }
 

@@ -8,4 +8,6 @@ public class MathUtils {
         CONCATENATE {  public long apply(long a, long b) {   return Long.parseLong("" + a + b);   }  };
         public abstract long apply(long a, long b);
     }
+
+    public static int numberOfDigits(long l) { return (int) Math.log10(l) + 1; }
 }

@@ -2,13 +2,13 @@ package aoc2024.utils.puzzles;
 
 public interface DailyPuzzle {
 
-    public record PuzzleSolution(String firstTest, String firstResult, String secondTest, String secondResult) { }
+    public record PuzzleSolution(String result1, long time1, String result2, long time2) { }
 
     String first(String filePath);
 
     String second(String filePath);
 
-    PuzzleSolution solve();
+    PuzzleSolution solve(String filepath);
 
     PuzzleSolution getExpectedSolution();
 
